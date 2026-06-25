@@ -212,7 +212,82 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ─── VISION / STATS ─────────────────────────────── */}
+      {/* ─── PARTNERS & ECOSYSTEM ───────────────────────── */}
+      <section className="section section-bg">
+        <div className="container">
+          <div className="reveal" style={{textAlign:'center', marginBottom:'4rem'}}>
+            <span className="uppercase text-accent" style={{display:'block', marginBottom:'1rem'}}>Our Ecosystem</span>
+            <h2 className="serif" style={{fontSize:'clamp(2.5rem, 4vw, 4rem)'}}>Partners &amp; Collaborators</h2>
+            <p className="editorial-body" style={{maxWidth:'600px', margin:'1.5rem auto 0'}}>
+              We work alongside a growing network of government agencies, international organizations, and private sector partners to scale impact across Rwanda.
+            </p>
+          </div>
+
+          <div className="partner-grid reveal">
+            <div className="partner-card">
+              <div className="partner-icon">🏛️</div>
+              <h4>Government</h4>
+              <p>Rwanda Agriculture Board (RAB), MINAGRI, Local Government, District Authorities</p>
+            </div>
+            <div className="partner-card">
+              <div className="partner-icon">🌍</div>
+              <h4>International NGOs</h4>
+              <p>UN Agencies, Development Partners, and International Development Organizations</p>
+            </div>
+            <div className="partner-card">
+              <div className="partner-icon">🏨</div>
+              <h4>Private Sector</h4>
+              <p>Luxury Hotels, Restaurants, Private Estates, Commercial Farms &amp; Agribusinesses</p>
+            </div>
+            <div className="partner-card">
+              <div className="partner-icon">🎓</div>
+              <h4>Education</h4>
+              <p>Primary &amp; Secondary Schools, Universities, and Vocational Training Centers across Musanze</p>
+            </div>
+            <div className="partner-card">
+              <div className="partner-icon">👩‍🌾</div>
+              <h4>Community Groups</h4>
+              <p>Women's Cooperatives, Youth Associations, and Persons with Disabilities (PWD) Groups</p>
+            </div>
+            <div className="partner-card">
+              <div className="partner-icon">🔬</div>
+              <h4>Technology</h4>
+              <p>IoT &amp; AgriTech Providers, Digital Agriculture Platforms, and Research Institutions</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ─── WHAT WE GROW ───────────────────────────────── */}
+      <section className="section">
+        <div className="container">
+          <div className="section-intro reveal">
+            <div>
+              <span className="uppercase text-accent" style={{display:'block', marginBottom:'1rem'}}>From Our Gardens</span>
+              <h2 className="serif section-h2">
+                What We<br/>
+                <em>Grow.</em>
+              </h2>
+            </div>
+            <p className="section-intro-body">
+              All of our produce is 100% organic and chemical-free, grown using climate-smart techniques. From leafy greens to companion flowers, every crop serves a purpose in our integrated food systems.
+            </p>
+          </div>
+
+          <div className="crop-grid reveal">
+            <div className="crop-tag">🥬 Kale &amp; Collard Greens</div>
+            <div className="crop-tag">🧅 Onions &amp; Spring Onions</div>
+            <div className="crop-tag">🫘 Bush Beans &amp; Climbing Beans</div>
+            <div className="crop-tag">🌿 Parsley &amp; Dill</div>
+            <div className="crop-tag">🥬 Cabbage &amp; Bok Choy</div>
+            <div className="crop-tag">🍠 Sweet Potato</div>
+            <div className="crop-tag">🌱 Amaranth Greens</div>
+            <div className="crop-tag">🌼 Marigolds (Companion)</div>
+            <div className="crop-tag">🥒 Fennel</div>
+            <div className="crop-tag">🌾 Organic Compost</div>
+          </div>
+        </div>
+      </section>
       <section id="impact" className="vision-section">
         <div className="container">
           <div className="reveal">
