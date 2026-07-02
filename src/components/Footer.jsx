@@ -20,8 +20,8 @@ export default function Footer() {
             <h4>Quick Links</h4>
             <ul className="footer-links">
               <li><Link to="/about">About Us</Link></li>
-              <li><Link to="/governance">Governance & Accountability</Link></li>
-              <li><Link to="/safeguarding">Safeguarding & HSE</Link></li>
+              <li><Link to="/governance">Our Products</Link></li>
+              <li><Link to="/safeguarding">Our Impact</Link></li>
             </ul>
           </div>
           <div className="footer-col">

@@ -151,7 +151,7 @@ export default function About() {
             GKG adopts a functional organizational structure that promotes efficiency and accountability. Governed by a <strong>Board of Directors</strong> providing strategic oversight, daily operations are led by the <strong>Managing Director</strong>, supported by dedicated department heads across Finance, Programs, MEAL, and Procurement.
           </p>
           <div style={{marginTop:'3rem', textAlign:'center'}}>
-            <Link to="/governance" className="btn btn-accent-outline">View Governance Framework</Link>
+            <Link to="/governance" className="btn btn-accent-outline">View Our Products</Link>
           </div>
         </div>
       </section>
