@@ -298,7 +298,8 @@ button { background: none; border: none; font: inherit; cursor: pointer; color: 
   display: block;
   font-style: italic;
   color: var(--color-gold);
-  margin-left: 12%;
+  margin-left: 6%;
+  max-width: 900px;
 }
 
 .hero-meta {
@@ -464,11 +465,11 @@ button { background: none; border: none; font: inherit; cursor: pointer; color: 
 
 .bento-item {
   background: var(--color-bg);
-  padding: 3rem;
+  padding: 2.5rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  gap: 2rem;
+  gap: 1.5rem;
   position: relative;
   overflow: hidden;
   transition: background 0.4s ease;
@@ -490,12 +491,13 @@ button { background: none; border: none; font: inherit; cursor: pointer; color: 
   background-size: cover !important;
   background-position: center !important;
   position: relative;
+  isolation: isolate;
 }
 
 .bento-img-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(0,0,0,0.85) 40%, rgba(0,0,0,0.2) 100%);
+  background: linear-gradient(to top, rgba(0,0,0,0.86) 0%, rgba(0,0,0,0.45) 46%, rgba(0,0,0,0.16) 100%);
   transition: opacity 0.4s;
 }
 
@@ -523,6 +525,8 @@ button { background: none; border: none; font: inherit; cursor: pointer; color: 
   line-height: 1.1;
 }
 
+.bento-title-light { color: #fff; }
+
 .bento-item.large .bento-title {
   font-size: clamp(2.5rem, 3.2vw, 3.8rem);
 }
@@ -540,9 +544,55 @@ button { background: none; border: none; font: inherit; cursor: pointer; color: 
 .bento-text-light { color: rgba(255,255,255,0.75); }
 
 .bento-item:hover .bento-text,
-.bento-item.large .bento-text { opacity: 1; transform: translateY(0); }
+.bento-item.large .bento-text,
+.bento-item.bento-image .bento-text,
+.impact-card .bento-text { opacity: 1; transform: translateY(0); }
 
 .bento-cta { display: flex; }
+
+.bento-split-image {
+  isolation: isolate;
+  background: var(--color-dark-section);
+}
+
+.bento-split-media {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.bento-split-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  min-width: 0;
+}
+
+.product-grid .product-card {
+  min-height: 380px;
+}
+
+.product-grid .product-card.large {
+  min-height: 620px;
+}
+
+.product-grid .bento-title {
+  max-width: 420px;
+}
+
+.impact-number {
+  font-family: var(--font-serif);
+  font-size: clamp(2.25rem, 4vw, 4.25rem);
+  line-height: 1.05;
+  color: var(--color-accent);
+  margin: 1.5rem 0;
+  letter-spacing: -1px;
+}
+
+.impact-card .bento-text {
+  max-width: 520px;
+}
 
 /* ── Services List ──────────────────────────────────── */
 .services-list {

@@ -33,8 +33,8 @@ export default function Navbar() {
         <div className="nav-links desktop-only">
           <Link to="/" className={`nav-link ${isActive('/')}`}>Home</Link>
           <Link to="/about" className={`nav-link ${isActive('/about')}`}>About Us</Link>
-          <Link to="/governance" className={`nav-link ${isActive('/governance')}`}>Governance</Link>
-          <Link to="/safeguarding" className={`nav-link ${isActive('/safeguarding')}`}>Safeguarding</Link>
+          <Link to="/governance" className={`nav-link ${isActive('/governance')}`}>Our Products</Link>
+          <Link to="/safeguarding" className={`nav-link ${isActive('/safeguarding')}`}>Our Impact</Link>
           <a href="mailto:goldengarden121@gmail.com" className="btn nav-cta">Partner</a>
         </div>
 
@@ -54,8 +54,8 @@ export default function Navbar() {
       <div className={`mobile-menu ${menuOpen ? 'open' : ''}`}>
         <Link to="/" className={`nav-link ${isActive('/')}`}>Home</Link>
         <Link to="/about" className={`nav-link ${isActive('/about')}`}>About Us</Link>
-        <Link to="/governance" className={`nav-link ${isActive('/governance')}`}>Governance</Link>
-        <Link to="/safeguarding" className={`nav-link ${isActive('/safeguarding')}`}>Safeguarding</Link>
+        <Link to="/governance" className={`nav-link ${isActive('/governance')}`}>Our Products</Link>
+        <Link to="/safeguarding" className={`nav-link ${isActive('/safeguarding')}`}>Our Impact</Link>
         <a href="mailto:goldengarden121@gmail.com" className="btn nav-cta" style={{marginTop:'1rem'}}>Partner</a>
       </div>
     </nav>
