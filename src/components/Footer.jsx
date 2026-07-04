@@ -6,7 +6,7 @@ export default function Footer() {
       <div className="container">
         <div className="footer-top reveal">
           <h2 className="footer-huge">Partner with <span>purpose.</span></h2>
-          <a href="mailto:goldengarden121@gmail.com" className="btn btn-accent-outline">Get in touch ↗</a>
+          <a href="mailto:info@goldenkitchengarden.com" className="btn btn-accent-outline">Get in touch ↗</a>
         </div>
 
         <div className="footer-grid reveal">
@@ -29,6 +29,15 @@ export default function Footer() {
             <ul className="footer-links">
               <li><span className="text-dim">Jean de Dieu TWAGIRIMANA</span></li>
               <li><span className="text-dim">Managing Director & Founder</span></li>
+            </ul>
+          </div>
+          <div className="footer-col">
+            <h4>Contact Us</h4>
+            <ul className="footer-links footer-contact">
+              <li><a href="https://wa.me/250788206976">WhatsApp: +250 788 206 976</a></li>
+              <li><a href="tel:+250788206976">Phone: +250 788 206 976</a></li>
+              <li><a href="mailto:info@goldenkitchengarden.com">info@goldenkitchengarden.com</a></li>
+              <li><a href="mailto:customer@goldenkitchengarden.com">customer@goldenkitchengarden.com</a></li>
             </ul>
           </div>
           <div className="footer-col" style={{textAlign: 'right'}}>
