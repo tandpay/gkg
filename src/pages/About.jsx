@@ -47,38 +47,14 @@ export default function About() {
 
       <section className="section section-bg">
         <div className="container">
-          <div className="reveal" style={{textAlign:'center', marginBottom:'4rem'}}>
-            <h2 className="serif" style={{fontSize: '3.5rem'}}>Our Foundation</h2>
-          </div>
-          
-          <div className="bento-grid reveal">
-            <div className="bento-item">
-              <div className="bento-number">01</div>
-              <div>
-                <h3 className="serif bento-title">Our Vision</h3>
-                <p className="bento-text">To build a hunger-free and climate-resilient Rwanda where every household, school, and community has access to sustainable and nutritious food systems.</p>
-              </div>
+          <div className="foundation-simple reveal">
+            <div className="foundation-statement">
+              <h3 className="serif foundation-title">Our Vision</h3>
+              <p>A climate-resilient Rwanda free from hunger where every community has access to sustainable and nutritious food systems.</p>
             </div>
-            <div className="bento-item large">
-              <div className="bento-number">02</div>
-              <div>
-                <h3 className="serif bento-title">Our Mission</h3>
-                <p className="bento-text" style={{fontSize:'1.1rem', maxWidth:'500px'}}>To promote climate-smart agriculture, nutrition security, environmental sustainability, and economic empowerment through innovative kitchen gardens, training, and inclusive value chains.</p>
-              </div>
-            </div>
-            <div className="bento-item bento-wide">
-              <div className="bento-number">03</div>
-              <div>
-                <h3 className="serif bento-title">Core Values</h3>
-                <div style={{display:'grid', gridTemplateColumns:'1fr 1fr', gap:'1rem', marginTop:'1.5rem'}}>
-                  <p className="bento-text"><strong>Integrity:</strong> We conduct all activities honestly, transparently, and ethically.</p>
-                  <p className="bento-text"><strong>Innovation:</strong> We embrace modern technologies and innovative solutions.</p>
-                  <p className="bento-text"><strong>Sustainability:</strong> All interventions promote environmental conservation.</p>
-                  <p className="bento-text"><strong>Inclusiveness:</strong> We promote participation of women, youth, and PWDs.</p>
-                  <p className="bento-text"><strong>Accountability:</strong> Staff are accountable for resources and results.</p>
-                  <p className="bento-text"><strong>Collaboration:</strong> We value partnerships with communities and government.</p>
-                </div>
-              </div>
+            <div className="foundation-statement">
+              <h3 className="serif foundation-title">Our Mission</h3>
+              <p>To improve livelihoods through regenerative climate-smart agriculture, nutrition systems, environmental sustainability, and inclusive value chains driven by innovative farming systems.</p>
             </div>
           </div>
         </div>

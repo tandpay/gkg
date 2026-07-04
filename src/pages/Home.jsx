@@ -87,7 +87,6 @@ export default function Home() {
               <span>through Regenerative &amp; Climate-Smart Agriculture</span>
             </h1>
             <div className="hero-meta">
-              <p className="uppercase hero-tag">Urban Agriculture</p>
               <p className="hero-subtitle">Transforming Rwanda's urban and rural spaces into resilient, productive, and beautiful edible landscapes for communities, investors, and the planet.</p>
             </div>
             <div className="hero-btns">
@@ -107,22 +106,13 @@ export default function Home() {
         <div className="container">
           <div className="section-intro reveal">
             <div>
-              <span className="uppercase text-accent" style={{display:'block', marginBottom:'1rem'}}>Strategic Initiatives</span>
-              <h2 className="serif section-h2">
-                Revolutionizing Rwanda's<br/>
-                <em>food systems</em> from<br/>
-                the ground up.
-              </h2>
+              <h2 className="serif section-h2">Our Core Programs</h2>
             </div>
-            <p className="section-intro-body">
-              Our Five Core Programs
-            </p>
           </div>
 
           <div className="bento-grid reveal">
             <div className="bento-item bento-image large" style={{backgroundImage: 'url(/1.jpg)'}}>
               <div className="bento-img-overlay"></div>
-              <div className="bento-number bento-number-light">01</div>
               <div className="bento-bottom-content">
                 <h3 className="serif bento-title bento-title-light">Regenerative and<br/>Climate-Smart Agriculture</h3>
                 <p className="bento-text bento-text-light">We advance climate resilience by embedding CSA principles into every community-led initiative — using no-tillage techniques, water-smart irrigation, and biodiversity planting to minimise environmental footprint while maximizing yield per square meter.</p>
@@ -130,15 +120,13 @@ export default function Home() {
             </div>
             <div className="bento-item bento-image" style={{backgroundImage: 'url(/2.jpg)'}}>
               <div className="bento-img-overlay"></div>
-              <div className="bento-number bento-number-light">02</div>
               <div className="bento-bottom-content">
                 <h3 className="serif" style={{fontSize:'2rem', marginBottom:'0.5rem', color:'#fff'}}>Nutrition &amp;<br/>Food Security</h3>
-                <p className="bento-text bento-text-light">Through our flagship ISHURI RY'UMURIMA, we empower smallholder farmers through practical Farmer Field Schools, providing hands-on training from nursery establishment to sustainable crop production. The program promotes nutrition, food security, and climate-smart agriculture while engaging youth, women, and persons with disabilities through secondary school clubs, VSLAs, and cooperatives.</p>
+                <p className="bento-text bento-text-light">We empower smallholder farmers through practical Farmer Field Schools, providing hands-on training from nursery establishment to sustainable crop production. The program promotes nutrition, food security, and climate-smart agriculture while engaging youth, women, and persons with disabilities through secondary school clubs, VSLAs, and cooperatives.</p>
               </div>
             </div>
             <div className="bento-item bento-image" style={{backgroundImage: 'url(/3.jpg)'}}>
               <div className="bento-img-overlay"></div>
-              <div className="bento-number bento-number-light">03</div>
               <div className="bento-bottom-content">
                 <h3 className="serif bento-title bento-title-light">Agrifood<br/>Innovation</h3>
                 <p className="bento-text bento-text-light">Integrating IoT-based drip irrigation, remote crop monitoring, and precision composting to transform traditional agro-ecosystems into data-driven productive units.</p>
@@ -146,19 +134,13 @@ export default function Home() {
             </div>
             <div className="bento-item bento-image" style={{backgroundImage: 'url(/4.jpg)'}}>
               <div className="bento-img-overlay"></div>
-              <div className="bento-number bento-number-light">04</div>
               <div className="bento-bottom-content">
                 <h3 className="serif bento-title bento-title-light">Circular<br/>Economy</h3>
                 <p className="bento-text bento-text-light">From kitchen waste to premium compost, we close the nutrient loop. Our reuse/recycle model cuts input costs by up to 60% while regenerating soil health.</p>
               </div>
             </div>
-            <div className="bento-item bento-wide bento-split-image">
-              <div className="bento-split-media" aria-hidden="true">
-                <img src="/5.1.jpg" alt="" />
-                <img src="/5.2.jpg" alt="" />
-              </div>
+            <div className="bento-item bento-wide bento-image" style={{backgroundImage: 'url(/program-commercial-landscaping.jpg)'}}>
               <div className="bento-img-overlay"></div>
-              <div className="bento-number bento-number-light">05</div>
               <div className="bento-bottom-content">
                 <h3 className="serif bento-title bento-title-light">Commercial Landscaping</h3>
                 <p className="bento-text bento-text-light">High-end, edible landscaping for private estates, luxury hotels, and institutions — promoting our "beauty-meets-nutrition" philosophy where every garden feeds and inspires.</p>
