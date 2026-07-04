@@ -845,8 +845,8 @@ button { background: none; border: none; font: inherit; cursor: pointer; color: 
 
 .footer-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1.5fr;
-  gap: 4rem;
+  grid-template-columns: 1fr 0.85fr 1fr 1.15fr 1.15fr;
+  gap: 3rem;
   border-top: 1px solid rgba(255,255,255,0.08);
   padding-top: 4rem;
 }
@@ -865,6 +865,7 @@ button { background: none; border: none; font: inherit; cursor: pointer; color: 
 .footer-links li { margin-bottom: 0.85rem; }
 .footer-links a { color: rgba(255,255,255,0.45); transition: color 0.3s; }
 .footer-links a:hover { color: #fff; }
+.footer-contact a { overflow-wrap: anywhere; }
 .footer .text-dim { color: rgba(255,255,255,0.45); }
 
 /* ── Animations ─────────────────────────────────────── */
