@@ -40,7 +40,7 @@ export default function Navbar() {
     <nav className={`navbar ${onHero ? 'on-hero' : ''} ${scrolled ? 'scrolled' : ''} ${menuOpen ? 'menu-open' : ''}`} aria-label="Main">
       <div className="container">
         <Link to="/" className="logo-container">
-          <span className="logo-tile"><img src="/logo.jpg" alt="GKG Logo" width="34" height="32" /></span>
+          <img className="logo-mark" src="/logo.svg" alt="GKG Logo" width="44" height="44" />
           <div className="logo-text">GKG Rwanda</div>
         </Link>
 
