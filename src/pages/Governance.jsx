@@ -1,4 +1,5 @@
 import React from 'react';
+import Img from '../components/Img';
 
 const products = [
   ['Kitchen Garden Design and Installation', '/6.1.jpg'],
@@ -37,7 +38,7 @@ export default function Governance() {
             {products.map(([title, image], index) => (
               <li className="product-card media-zoom reveal" style={{'--i': index % 3}} key={title}>
                 <div className="media">
-                  <img src={image} alt={`${title} by Golden Kitchen Garden Rwanda`} loading={index < 3 ? 'eager' : 'lazy'} decoding="async" />
+                  <Img src={image} sizes={index === 0 ? '(max-width: 900px) 100vw, 820px' : '(max-width: 640px) 100vw, (max-width: 900px) 50vw, 400px'} alt={`${title} by Golden Kitchen Garden Rwanda`} loading={index < 3 ? 'eager' : 'lazy'} decoding="async" />
                 </div>
                 <h3>{title}</h3>
               </li>

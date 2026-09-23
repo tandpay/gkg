@@ -197,7 +197,7 @@ const escapeAttr = (s) =>
   String(s).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
 
 // Head tags for one route, as an HTML string injected at build time.
-export function headTags(route) {
+export function headTags(route, { heroPreload } = {}) {
   const tags = [
     `<title>${escapeAttr(route.title)}</title>`,
     `<meta name="description" content="${escapeAttr(route.description)}" />`,
@@ -226,8 +226,6 @@ export function headTags(route) {
     `<meta name="twitter:image" content="${OG_IMAGE}" />`,
     `<script type="application/ld+json">${JSON.stringify(structuredData(route)).replace(/</g, '\\u003c')}</script>`,
   );
-  if (route.path === '/') {
-    tags.push('<link rel="preload" as="image" href="/hero.jpg" fetchpriority="high" />');
-  }
+  if (route.path === '/' && heroPreload) tags.push(heroPreload);
   return tags.join('\n    ');
 }

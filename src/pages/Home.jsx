@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
+import Img from '../components/Img';
 
 /* ─── Animated Counter Hook ──────────────────────────── */
 // Counts up to a figure like "12,000+" once it scrolls into view. The
@@ -92,7 +93,7 @@ export default function Home() {
       {/* ─── HERO ───────────────────────────────────────── */}
       <section className="hero">
         <div className="hero-bg-wrapper">
-          <img src="/hero.jpg" alt="Golden Kitchen Garden Rwanda farm team tending a strawberry field" className="hero-bg" fetchPriority="high" />
+          <Img src="/hero.jpg" sizes="100vw" alt="Golden Kitchen Garden Rwanda farm team tending a strawberry field" className="hero-bg" fetchPriority="high" />
         </div>
         <div className="hero-overlay"></div>
         <div className="hero-terraces" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>
@@ -123,7 +124,7 @@ export default function Home() {
 
           <article className="program-feature">
             <div className="media reveal-media">
-              <img src="/1.jpg" alt="Regenerative and climate-smart agriculture" loading="lazy" decoding="async" />
+              <Img src="/1.jpg" sizes="(max-width: 900px) 100vw, 740px" alt="Regenerative and climate-smart agriculture" loading="lazy" decoding="async" />
             </div>
             <div className="reveal">
               <h3>Regenerative and<br/>Climate-Smart Agriculture</h3>
@@ -133,22 +134,22 @@ export default function Home() {
 
           <div className="program-grid">
             <article className="program reveal" style={{'--i': 0}}>
-              <div className="media"><img src="/2.jpg" alt="Nutrition and food security programs" loading="lazy" decoding="async" /></div>
+              <div className="media"><Img src="/2.jpg" sizes="(max-width: 640px) 100vw, (max-width: 1080px) 50vw, 300px" alt="Nutrition and food security programs" loading="lazy" decoding="async" /></div>
               <h3>Nutrition &amp;<br/>Food Security</h3>
               <p>We empower smallholder farmers through practical Farmer Field Schools, providing hands-on training from nursery establishment to sustainable crop production. The program promotes nutrition, food security, and climate-smart agriculture while engaging youth, women, and persons with disabilities through secondary school clubs, VSLAs, and cooperatives.</p>
             </article>
             <article className="program reveal" style={{'--i': 1}}>
-              <div className="media"><img src="/3.jpg" alt="Agrifood innovation" loading="lazy" decoding="async" /></div>
+              <div className="media"><Img src="/3.jpg" sizes="(max-width: 640px) 100vw, (max-width: 1080px) 50vw, 300px" alt="Agrifood innovation" loading="lazy" decoding="async" /></div>
               <h3>Agrifood<br/>Innovation</h3>
               <p>Integrating IoT-based drip irrigation, remote crop monitoring, and precision composting to transform traditional agro-ecosystems into data-driven productive units.</p>
             </article>
             <article className="program reveal" style={{'--i': 2}}>
-              <div className="media"><img src="/4.jpg" alt="Circular economy composting" loading="lazy" decoding="async" /></div>
+              <div className="media"><Img src="/4.jpg" sizes="(max-width: 640px) 100vw, (max-width: 1080px) 50vw, 300px" alt="Circular economy composting" loading="lazy" decoding="async" /></div>
               <h3>Circular<br/>Economy</h3>
               <p>From kitchen waste to premium compost, we close the nutrient loop. Our reuse/recycle model cuts input costs by up to 60% while regenerating soil health.</p>
             </article>
             <article className="program reveal" style={{'--i': 3}}>
-              <div className="media"><img src="/program-commercial-landscaping.jpg" alt="Commercial edible landscaping" loading="lazy" decoding="async" /></div>
+              <div className="media"><Img src="/program-commercial-landscaping.jpg" sizes="(max-width: 640px) 100vw, (max-width: 1080px) 50vw, 300px" alt="Commercial edible landscaping" loading="lazy" decoding="async" /></div>
               <h3>Commercial Landscaping</h3>
               <p>High-end, edible landscaping for private estates, luxury hotels, and institutions — promoting our "beauty-meets-nutrition" philosophy where every garden feeds and inspires.</p>
               <button onClick={() => scrollTo('services-img')} className="btn btn-ghost btn-sm">Learn More →</button>
@@ -196,7 +197,7 @@ export default function Home() {
               <a href="mailto:goldengarden121@gmail.com" className="btn btn-primary">Request a Consultation</a>
             </div>
             <div className="editorial-image-wrapper mask-arch reveal-media">
-              <img src="/landscaping-pathway.jpg" alt="Edible landscaping pathway designed by Golden Kitchen Garden Rwanda" className="editorial-image" loading="lazy" decoding="async" />
+              <Img src="/landscaping-pathway.jpg" sizes="(max-width: 900px) 100vw, 600px" alt="Edible landscaping pathway designed by Golden Kitchen Garden Rwanda" className="editorial-image" loading="lazy" decoding="async" />
             </div>
           </div>
         </div>
@@ -320,15 +321,15 @@ export default function Home() {
           </div>
 
           <div className="masonry gallery-grid">
-            <div className="masonry-item reveal-media"><img src="/garden-construction.jpg" alt="Kitchen garden construction by GKG Rwanda" loading="lazy" decoding="async" /></div>
-            <div className="masonry-item reveal-media"><img src="/gallery-1.jpg" alt="GKG community work in Musanze, Rwanda" loading="lazy" decoding="async" /></div>
-            <div className="masonry-item reveal-media"><img src="/gallery-10.jpg" alt="Community members preparing farmland together with GKG Rwanda" loading="lazy" decoding="async" /></div>
-            <div className="masonry-item reveal-media"><img src="/gallery-3.jpg" alt="Kitchen garden installed by GKG Rwanda" loading="lazy" decoding="async" /></div>
-            <div className="masonry-item reveal-media"><img src="/gallery-4.jpg" alt="Organic vegetable harvest from a GKG garden" loading="lazy" decoding="async" /></div>
-            <div className="masonry-item reveal-media"><img src="/gallery-5.jpg" alt="Women farmers trained by GKG Rwanda" loading="lazy" decoding="async" /></div>
-            <div className="masonry-item reveal-media"><img src="/gallery-6.jpg" alt="Organic vegetable seedlings from the GKG nursery" loading="lazy" decoding="async" /></div>
-            <div className="masonry-item reveal-media"><img src="/gallery-12.jpg" alt="Farmer tending crops in a GKG-supported field" loading="lazy" decoding="async" /></div>
-            <div className="masonry-item reveal-media"><img src="/gallery-8.jpg" alt="Community impact of GKG programs in Rwanda" loading="lazy" decoding="async" /></div>
+            <div className="masonry-item reveal-media"><Img src="/garden-construction.jpg" sizes="(max-width: 900px) 100vw, 820px" alt="Kitchen garden construction by GKG Rwanda" loading="lazy" decoding="async" /></div>
+            <div className="masonry-item reveal-media"><Img src="/gallery-1.jpg" sizes="(max-width: 900px) 50vw, 400px" alt="GKG community work in Musanze, Rwanda" loading="lazy" decoding="async" /></div>
+            <div className="masonry-item reveal-media"><Img src="/gallery-10.jpg" sizes="(max-width: 900px) 50vw, 400px" alt="Community members preparing farmland together with GKG Rwanda" loading="lazy" decoding="async" /></div>
+            <div className="masonry-item reveal-media"><Img src="/gallery-3.jpg" sizes="(max-width: 900px) 50vw, 400px" alt="Kitchen garden installed by GKG Rwanda" loading="lazy" decoding="async" /></div>
+            <div className="masonry-item reveal-media"><Img src="/gallery-4.jpg" sizes="(max-width: 900px) 50vw, 400px" alt="Organic vegetable harvest from a GKG garden" loading="lazy" decoding="async" /></div>
+            <div className="masonry-item reveal-media"><Img src="/gallery-5.jpg" sizes="(max-width: 900px) 50vw, 400px" alt="Women farmers trained by GKG Rwanda" loading="lazy" decoding="async" /></div>
+            <div className="masonry-item reveal-media"><Img src="/gallery-6.jpg" sizes="(max-width: 900px) 50vw, 400px" alt="Organic vegetable seedlings from the GKG nursery" loading="lazy" decoding="async" /></div>
+            <div className="masonry-item reveal-media"><Img src="/gallery-12.jpg" sizes="(max-width: 900px) 50vw, 400px" alt="Farmer tending crops in a GKG-supported field" loading="lazy" decoding="async" /></div>
+            <div className="masonry-item reveal-media"><Img src="/gallery-8.jpg" sizes="(max-width: 900px) 50vw, 400px" alt="Community impact of GKG programs in Rwanda" loading="lazy" decoding="async" /></div>
           </div>
         </div>
       </section>

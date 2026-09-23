@@ -44,7 +44,8 @@ body {
   overflow-x: hidden;
 }
 
-img { display: block; max-width: 100%; }
+img { display: block; max-width: 100%; height: auto; }
+picture { display: contents; }
 a { color: inherit; text-decoration: none; }
 button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
 ul, ol { list-style: none; }
@@ -419,8 +420,8 @@ a.media:hover img, .media-zoom:hover img { transform: scale(1.04); }
 .js .reveal.active { opacity: 1; transform: none; }
 /* The clip sits on the image, not the observed box: IntersectionObserver
    honours clip-path, so a fully clipped box would never report as visible. */
-.js .reveal-media > img { clip-path: inset(0 0 100% 0); transition: clip-path 1.2s var(--ease), transform 1.2s var(--ease); transition-delay: calc(var(--i, 0) * 90ms); }
-.js .reveal-media.active > img { clip-path: inset(0 0 0 0); }
+.js .reveal-media img { clip-path: inset(0 0 100% 0); transition: clip-path 1.2s var(--ease), transform 1.2s var(--ease); transition-delay: calc(var(--i, 0) * 90ms); }
+.js .reveal-media.active img { clip-path: inset(0 0 0 0); }
 
 /* ── Responsive ───────────────────────────────────────────── */
 .mobile-only { display: none; }
@@ -473,5 +474,5 @@ a.media:hover img, .media-zoom:hover img { transform: scale(1.04); }
   *, *::before, *::after { animation-duration: 0.01ms !important; animation-delay: 0s !important; transition-duration: 0.01ms !important; transition-delay: 0s !important; scroll-behavior: auto !important; }
   .hero-terraces { display: none; }
   .js .reveal { opacity: 1; transform: none; }
-  .js .reveal-media > img { clip-path: none; }
+  .js .reveal-media img { clip-path: none; }
 }
