@@ -18,9 +18,16 @@ if (!headBlock.test(template) || !template.includes('<!--app-html-->')) {
   throw new Error('dist/index.html is missing the prerender placeholders');
 }
 
+// Preload the hero in the format and width the browser will actually pick.
+const imageManifest = JSON.parse(readFileSync(resolve('src/image-manifest.json'), 'utf8'));
+const hero = imageManifest['/hero.jpg'];
+const heroPreload = hero
+  ? `<link rel="preload" as="image" type="image/avif" imagesrcset="${hero.sources.avif.map(([u, w]) => `${u} ${w}w`).join(', ')}" imagesizes="100vw" fetchpriority="high" />`
+  : '<link rel="preload" as="image" href="/hero.jpg" fetchpriority="high" />';
+
 function page(route, url) {
   return template
-    .replace(headBlock, headTags(route))
+    .replace(headBlock, headTags(route, { heroPreload }))
     .replace('<!--app-html-->', render(url));
 }
 

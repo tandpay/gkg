@@ -11,7 +11,7 @@ export default function Footer() {
 
         <div className="footer-grid">
           <div className="footer-col footer-org">
-            <span className="logo-tile"><img src="/logo.jpg" alt="GKG" width="34" height="32" loading="lazy" /></span>
+            <img className="logo-mark logo-mark-lg" src="/logo.svg" alt="GKG" width="64" height="64" loading="lazy" />
             <h4>Organization</h4>
             <p className="text-dim">Golden Kitchen Garden Rwanda Ltd.</p>
             <p className="text-dim">Nkotsi, Musanze, Rwanda</p>

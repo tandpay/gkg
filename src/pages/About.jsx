@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Img from '../components/Img';
 
 const objectives = [
   ['Strengthen nutrition and food security', 'Focusing on vulnerable populations through sustainable means.'],
@@ -39,7 +40,7 @@ export default function About() {
               </div>
             </div>
             <div className="editorial-image-wrapper mask-organic reveal-media">
-              <img src="/empowering-women.jpg" alt="Women farmers empowered through GKG climate-smart agriculture in Rwanda" className="editorial-image" loading="lazy" decoding="async" />
+              <Img src="/empowering-women.jpg" sizes="(max-width: 900px) 100vw, 600px" alt="Women farmers empowered through GKG climate-smart agriculture in Rwanda" className="editorial-image" loading="lazy" decoding="async" />
             </div>
           </div>
         </div>

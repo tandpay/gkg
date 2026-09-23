@@ -1,4 +1,5 @@
 import React from 'react';
+import Img from '../components/Img';
 
 export default function Safeguarding() {
   return (
@@ -21,7 +22,7 @@ export default function Safeguarding() {
               </p>
             </div>
             <div className="editorial-image-wrapper mask-organic reveal-media">
-              <img src="/7.jpg" alt="Golden Kitchen Garden Rwanda community impact" className="editorial-image" loading="lazy" decoding="async" />
+              <Img src="/7.jpg" sizes="(max-width: 900px) 100vw, 600px" alt="Golden Kitchen Garden Rwanda community impact" className="editorial-image" loading="lazy" decoding="async" />
             </div>
           </div>
         </div>

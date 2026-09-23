@@ -24,3 +24,5 @@ dist-ssr
 *.sw?
 .vercel
 .env*
+public/img
+src/image-manifest.json
