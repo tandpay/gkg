@@ -2,34 +2,34 @@ import React, { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 
 /* ─── Animated Counter Hook ──────────────────────────── */
-function useCountUp(target, duration = 2000) {
+// Counts up to a figure like "12,000+" once it scrolls into view. The
+// prerendered HTML carries the final figure for crawlers and no-JS visitors.
+function useCountUp(target, duration = 1800) {
   const ref = useRef(null);
   const hasRun = useRef(false);
 
   useEffect(() => {
     const el = ref.current;
-    if (!el) return;
+    if (!el || hasRun.current) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    const numericTarget = Number(String(target).replace(/[^0-9.]/g, ''));
+    const suffix = String(target).replace(/[0-9.,]/g, '');
+    const format = (n) => Math.round(n).toLocaleString('en-US') + suffix;
+    el.textContent = format(0);
 
     const observer = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting && !hasRun.current) {
-        hasRun.current = true;
-        const isDecimal = String(target).includes('.');
-        const numericTarget = parseFloat(String(target).replace(/[^0-9.]/g, ''));
-        const suffix = String(target).replace(/[0-9.]/g, '');
-        const start = performance.now();
-
-        const tick = (now) => {
-          const elapsed = now - start;
-          const progress = Math.min(elapsed / duration, 1);
-          const eased = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
-          const current = eased * numericTarget;
-          el.textContent = (isDecimal
-            ? current.toFixed(1)
-            : Math.floor(current).toLocaleString()) + suffix;
-          if (progress < 1) requestAnimationFrame(tick);
-        };
-        requestAnimationFrame(tick);
-      }
+      if (!entry.isIntersecting || hasRun.current) return;
+      hasRun.current = true;
+      observer.disconnect();
+      const start = performance.now();
+      const tick = (now) => {
+        const progress = Math.min((now - start) / duration, 1);
+        const eased = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
+        el.textContent = format(eased * numericTarget);
+        if (progress < 1) requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
     }, { threshold: 0.5 });
 
     observer.observe(el);
@@ -42,29 +42,45 @@ function useCountUp(target, duration = 2000) {
 function scrollTo(id) {
   const el = document.getElementById(id);
   if (!el) return;
-  el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  const smooth = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  el.scrollIntoView({ behavior: smooth ? 'smooth' : 'auto', block: 'start' });
+}
+
+const icon = {
+  government: <path d="M3 21h18M4 10h16M12 3 3.5 8h17L12 3ZM6 10v8m4-8v8m4-8v8m4-8v8M4 18h16" />,
+  ngo: <><circle cx="12" cy="12" r="9" /><path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3Z" /></>,
+  private: <path d="M4 21V5.5L12 3l8 2.5V21M4 21h16M9 21v-4h6v4M8 8h1m3 0h1m3 0h1M8 12h1m3 0h1m3 0h1" />,
+  education: <path d="m2 9 10-5 10 5-10 5L2 9Zm4 2v5c0 1.7 2.7 3 6 3s6-1.3 6-3v-5m4-2v6" />,
+  community: <><circle cx="9" cy="8" r="3.2" /><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6" /><circle cx="17" cy="9" r="2.4" /><path d="M16.5 14.1c2.6.3 4.5 2.6 4.5 5.4" /></>,
+  technology: <><rect x="6" y="6" width="12" height="12" rx="2" /><path d="M10 10h4v4h-4zM9 2v4m6-4v4M9 18v4m6-4v4M2 9h4m-4 6h4m12-6h4m-4 6h4" /></>,
+};
+
+function PartnerIcon({ name }) {
+  return (
+    <div className="partner-icon" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round">
+        {icon[name]}
+      </svg>
+    </div>
+  );
 }
 
 export default function Home() {
 
   useEffect(() => {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) entry.target.classList.add('active');
-      });
-    }, { threshold: 0.08 });
-    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-    return () => observer.disconnect();
-  }, []);
-
-  useEffect(() => {
     const bg = document.querySelector('.hero-bg');
-    if (!bg) return;
+    if (!bg || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    let frame = 0;
     const onScroll = () => {
-      bg.style.transform = `translateY(${window.scrollY * 0.35}px)`;
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(() => {
+        if (window.scrollY < window.innerHeight * 1.2) {
+          bg.style.transform = `translateY(${window.scrollY * 0.18}px)`;
+        }
+      });
     };
     window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
+    return () => { cancelAnimationFrame(frame); window.removeEventListener('scroll', onScroll); };
   }, []);
 
   const count1 = useCountUp('12,000+');
@@ -76,171 +92,157 @@ export default function Home() {
       {/* ─── HERO ───────────────────────────────────────── */}
       <section className="hero">
         <div className="hero-bg-wrapper">
-          <img src="/hero.jpg" alt="Golden Kitchen Garden" className="hero-bg" />
+          <img src="/hero.jpg" alt="Golden Kitchen Garden Rwanda farm team tending a strawberry field" className="hero-bg" fetchPriority="high" />
         </div>
         <div className="hero-overlay"></div>
+        <div className="hero-terraces" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>
         <div className="container">
-          <div className="hero-content reveal">
-            <p className="hero-eyebrow uppercase">Est. 2020 · Musanze, Rwanda</p>
+          <div className="hero-content">
+            <p className="hero-eyebrow">Est. 2020 · Musanze, Rwanda</p>
             <h1 className="hero-title">
-              Empowering Future Generations<br/>
-              <span>through Regenerative &amp; Climate-Smart Agriculture</span>
+              <span className="line"><span>Empowering Future Generations</span></span>
+              <span className="line line-soft"><span>through Regenerative &amp; Climate-Smart Agriculture</span></span>
             </h1>
             <div className="hero-meta">
               <p className="hero-subtitle">Transforming Rwanda's urban and rural spaces into resilient, productive, and beautiful edible landscapes for communities, investors, and the planet.</p>
-            </div>
-            <div className="hero-btns">
-              <button onClick={() => scrollTo('programs')} className="btn btn-light">Explore Initiatives</button>
-              <Link to="/about" className="btn btn-outline-light">About Us</Link>
+              <div className="hero-btns">
+                <button onClick={() => scrollTo('programs')} className="btn btn-light">Explore Initiatives</button>
+                <Link to="/about" className="btn btn-outline-light">About Us</Link>
+              </div>
             </div>
           </div>
-        </div>
-        <div className="hero-scroll-hint">
-          <span className="uppercase">Scroll</span>
-          <div className="scroll-line"></div>
         </div>
       </section>
 
       {/* ─── PROGRAMS ───────────────────────────────────── */}
-      <section id="programs" className="section section-no-border">
+      <section id="programs" className="section">
         <div className="container">
-          <div className="section-intro reveal">
-            <div>
-              <h2 className="serif section-h2">Our Core Programs</h2>
-            </div>
+          <div className="section-head single reveal">
+            <h2 className="display-2">Our Core Programs</h2>
           </div>
 
-          <div className="bento-grid reveal">
-            <div className="bento-item bento-image large" style={{backgroundImage: 'url(/1.jpg)'}}>
-              <div className="bento-img-overlay"></div>
-              <div className="bento-bottom-content">
-                <h3 className="serif bento-title bento-title-light">Regenerative and<br/>Climate-Smart Agriculture</h3>
-                <p className="bento-text bento-text-light">We advance climate resilience by embedding CSA principles into every community-led initiative — using no-tillage techniques, water-smart irrigation, and biodiversity planting to minimise environmental footprint while maximizing yield per square meter.</p>
-              </div>
+          <article className="program-feature">
+            <div className="media reveal-media">
+              <img src="/1.jpg" alt="Regenerative and climate-smart agriculture" loading="lazy" decoding="async" />
             </div>
-            <div className="bento-item bento-image" style={{backgroundImage: 'url(/2.jpg)'}}>
-              <div className="bento-img-overlay"></div>
-              <div className="bento-bottom-content">
-                <h3 className="serif" style={{fontSize:'2rem', marginBottom:'0.5rem', color:'#fff'}}>Nutrition &amp;<br/>Food Security</h3>
-                <p className="bento-text bento-text-light">We empower smallholder farmers through practical Farmer Field Schools, providing hands-on training from nursery establishment to sustainable crop production. The program promotes nutrition, food security, and climate-smart agriculture while engaging youth, women, and persons with disabilities through secondary school clubs, VSLAs, and cooperatives.</p>
-              </div>
+            <div className="reveal">
+              <h3>Regenerative and<br/>Climate-Smart Agriculture</h3>
+              <p className="body-text">We advance climate resilience by embedding CSA principles into every community-led initiative — using no-tillage techniques, water-smart irrigation, and biodiversity planting to minimise environmental footprint while maximizing yield per square meter.</p>
             </div>
-            <div className="bento-item bento-image" style={{backgroundImage: 'url(/3.jpg)'}}>
-              <div className="bento-img-overlay"></div>
-              <div className="bento-bottom-content">
-                <h3 className="serif bento-title bento-title-light">Agrifood<br/>Innovation</h3>
-                <p className="bento-text bento-text-light">Integrating IoT-based drip irrigation, remote crop monitoring, and precision composting to transform traditional agro-ecosystems into data-driven productive units.</p>
-              </div>
-            </div>
-            <div className="bento-item bento-image" style={{backgroundImage: 'url(/4.jpg)'}}>
-              <div className="bento-img-overlay"></div>
-              <div className="bento-bottom-content">
-                <h3 className="serif bento-title bento-title-light">Circular<br/>Economy</h3>
-                <p className="bento-text bento-text-light">From kitchen waste to premium compost, we close the nutrient loop. Our reuse/recycle model cuts input costs by up to 60% while regenerating soil health.</p>
-              </div>
-            </div>
-            <div className="bento-item bento-wide bento-image" style={{backgroundImage: 'url(/program-commercial-landscaping.jpg)'}}>
-              <div className="bento-img-overlay"></div>
-              <div className="bento-bottom-content">
-                <h3 className="serif bento-title bento-title-light">Commercial Landscaping</h3>
-                <p className="bento-text bento-text-light">High-end, edible landscaping for private estates, luxury hotels, and institutions — promoting our "beauty-meets-nutrition" philosophy where every garden feeds and inspires.</p>
-              </div>
-              <div className="bento-cta">
-                <button onClick={() => scrollTo('services-img')} className="btn btn-filled btn-sm">Learn More →</button>
-              </div>
-            </div>
+          </article>
+
+          <div className="program-grid">
+            <article className="program reveal" style={{'--i': 0}}>
+              <div className="media"><img src="/2.jpg" alt="Nutrition and food security programs" loading="lazy" decoding="async" /></div>
+              <h3>Nutrition &amp;<br/>Food Security</h3>
+              <p>We empower smallholder farmers through practical Farmer Field Schools, providing hands-on training from nursery establishment to sustainable crop production. The program promotes nutrition, food security, and climate-smart agriculture while engaging youth, women, and persons with disabilities through secondary school clubs, VSLAs, and cooperatives.</p>
+            </article>
+            <article className="program reveal" style={{'--i': 1}}>
+              <div className="media"><img src="/3.jpg" alt="Agrifood innovation" loading="lazy" decoding="async" /></div>
+              <h3>Agrifood<br/>Innovation</h3>
+              <p>Integrating IoT-based drip irrigation, remote crop monitoring, and precision composting to transform traditional agro-ecosystems into data-driven productive units.</p>
+            </article>
+            <article className="program reveal" style={{'--i': 2}}>
+              <div className="media"><img src="/4.jpg" alt="Circular economy composting" loading="lazy" decoding="async" /></div>
+              <h3>Circular<br/>Economy</h3>
+              <p>From kitchen waste to premium compost, we close the nutrient loop. Our reuse/recycle model cuts input costs by up to 60% while regenerating soil health.</p>
+            </article>
+            <article className="program reveal" style={{'--i': 3}}>
+              <div className="media"><img src="/program-commercial-landscaping.jpg" alt="Commercial edible landscaping" loading="lazy" decoding="async" /></div>
+              <h3>Commercial Landscaping</h3>
+              <p>High-end, edible landscaping for private estates, luxury hotels, and institutions — promoting our "beauty-meets-nutrition" philosophy where every garden feeds and inspires.</p>
+              <button onClick={() => scrollTo('services-img')} className="btn btn-ghost btn-sm">Learn More →</button>
+            </article>
           </div>
         </div>
       </section>
 
       {/* ─── SERVICES ───────────────────────────────────── */}
-      <section id="services-img" className="section">
+      <section id="services-img" className="section section-bg">
         <div className="container">
           <div className="editorial-split reverse">
             <div className="editorial-text reveal">
-              <span className="uppercase editorial-tag">Premium Services</span>
+              <span className="kicker">Premium Services</span>
               <h2 className="editorial-title">Where Beauty<br/>Meets Nutrition.</h2>
-              <p className="editorial-body">
+              <p className="body-text">
                 We design and construct breathtaking edible landscapes that are not only visually stunning but abundantly productive. Every leaf, every pathway, every raised bed is crafted with intention.
               </p>
               <div className="services-list">
-                <div className="service-item">
-                  <span className="service-num">—</span>
+                <div className="service-item no-num">
                   <div>
                     <strong>Edible Garden Design &amp; Installation</strong>
                     <p>For private homes, estates, hotels &amp; restaurants</p>
                   </div>
                 </div>
-                <div className="service-item">
-                  <span className="service-num">—</span>
+                <div className="service-item no-num">
                   <div>
                     <strong>Organic Vegetable Seedlings</strong>
                     <p>Certified chemical-free, grown in our nursery</p>
                   </div>
                 </div>
-                <div className="service-item">
-                  <span className="service-num">—</span>
+                <div className="service-item no-num">
                   <div>
                     <strong>Premium Organic Compost</strong>
                     <p>High-quality soil amendment for commercial farms</p>
                   </div>
                 </div>
-                <div className="service-item">
-                  <span className="service-num">—</span>
+                <div className="service-item no-num">
                   <div>
                     <strong>Agricultural Consultancy</strong>
                     <p>Training, planning &amp; field support</p>
                   </div>
                 </div>
               </div>
-              <a href="mailto:goldengarden121@gmail.com" className="btn">Request a Consultation</a>
+              <a href="mailto:goldengarden121@gmail.com" className="btn btn-primary">Request a Consultation</a>
             </div>
-            <div className="editorial-image-wrapper reveal mask-arch">
-              <img src="/landscaping-pathway.jpg" alt="Professional Landscaping" className="editorial-image" />
+            <div className="editorial-image-wrapper mask-arch reveal-media">
+              <img src="/landscaping-pathway.jpg" alt="Edible landscaping pathway designed by Golden Kitchen Garden Rwanda" className="editorial-image" loading="lazy" decoding="async" />
             </div>
           </div>
         </div>
       </section>
 
       {/* ─── PARTNERS & ECOSYSTEM ───────────────────────── */}
-      <section className="section section-bg">
+      <section className="section">
         <div className="container">
-          <div className="reveal" style={{textAlign:'center', marginBottom:'4rem'}}>
-            <span className="uppercase text-accent" style={{display:'block', marginBottom:'1rem'}}>Our Ecosystem</span>
-            <h2 className="serif" style={{fontSize:'clamp(2.5rem, 4vw, 4rem)'}}>Partners &amp; Collaborators</h2>
-            <p className="editorial-body" style={{maxWidth:'600px', margin:'1.5rem auto 0'}}>
+          <div className="section-head reveal">
+            <div>
+              <span className="kicker">Our Ecosystem</span>
+              <h2 className="display-2">Partners &amp; Collaborators</h2>
+            </div>
+            <p className="lede">
               We work alongside a growing network of government agencies, international organizations, and private sector partners to scale impact across Rwanda.
             </p>
           </div>
 
           <div className="partner-grid reveal">
             <div className="partner-card">
-              <div className="partner-icon">🏛️</div>
+              <PartnerIcon name="government" />
               <h4>Government</h4>
               <p>Rwanda Agriculture Board (RAB), MINAGRI, Local Government, District Authorities</p>
             </div>
             <div className="partner-card">
-              <div className="partner-icon">🌍</div>
+              <PartnerIcon name="ngo" />
               <h4>International NGOs</h4>
               <p>UN Agencies, Development Partners, and International Development Organizations</p>
             </div>
             <div className="partner-card">
-              <div className="partner-icon">🏨</div>
+              <PartnerIcon name="private" />
               <h4>Private Sector</h4>
               <p>Luxury Hotels, Restaurants, Private Estates, Commercial Farms &amp; Agribusinesses</p>
             </div>
             <div className="partner-card">
-              <div className="partner-icon">🎓</div>
+              <PartnerIcon name="education" />
               <h4>Education</h4>
               <p>Primary &amp; Secondary Schools, Universities, and Vocational Training Centers across Musanze</p>
             </div>
             <div className="partner-card">
-              <div className="partner-icon">👩‍🌾</div>
+              <PartnerIcon name="community" />
               <h4>Community Groups</h4>
               <p>Women's Cooperatives, Youth Associations, and Persons with Disabilities (PWD) Groups</p>
             </div>
             <div className="partner-card">
-              <div className="partner-icon">🔬</div>
+              <PartnerIcon name="technology" />
               <h4>Technology</h4>
               <p>IoT &amp; AgriTech Providers, Digital Agriculture Platforms, and Research Institutions</p>
             </div>
@@ -249,52 +251,54 @@ export default function Home() {
       </section>
 
       {/* ─── WHAT WE GROW ───────────────────────────────── */}
-      <section className="section">
+      <section className="section section-bg">
         <div className="container">
-          <div className="section-intro reveal">
+          <div className="section-head reveal">
             <div>
-              <span className="uppercase text-accent" style={{display:'block', marginBottom:'1rem'}}>From Our Gardens</span>
-              <h2 className="serif section-h2">
+              <span className="kicker">From Our Gardens</span>
+              <h2 className="display-2">
                 What We<br/>
                 <em>Grow.</em>
               </h2>
             </div>
-            <p className="section-intro-body">
+            <p className="lede">
               All of our produce is 100% organic and chemical-free, grown using climate-smart techniques. From leafy greens to companion flowers, every crop serves a purpose in our integrated food systems.
             </p>
           </div>
 
-          <div className="crop-grid reveal">
-            <div className="crop-tag">🥬 Kale &amp; Collard Greens</div>
-            <div className="crop-tag">🧅 Onions &amp; Spring Onions</div>
-            <div className="crop-tag">🫘 Bush Beans &amp; Climbing Beans</div>
-            <div className="crop-tag">🌿 Parsley &amp; Dill</div>
-            <div className="crop-tag">🥬 Cabbage &amp; Bok Choy</div>
-            <div className="crop-tag">🍠 Sweet Potato</div>
-            <div className="crop-tag">🌱 Amaranth Greens</div>
-            <div className="crop-tag">🌼 Marigolds (Companion)</div>
-            <div className="crop-tag">🥒 Fennel</div>
-            <div className="crop-tag">🌾 Organic Compost</div>
-          </div>
+          <ul className="crop-grid reveal">
+            <li className="crop-tag">Kale &amp; Collard Greens</li>
+            <li className="crop-tag">Onions &amp; Spring Onions</li>
+            <li className="crop-tag">Bush Beans &amp; Climbing Beans</li>
+            <li className="crop-tag">Parsley &amp; Dill</li>
+            <li className="crop-tag">Cabbage &amp; Bok Choy</li>
+            <li className="crop-tag">Sweet Potato</li>
+            <li className="crop-tag">Amaranth Greens</li>
+            <li className="crop-tag">Marigolds (Companion)</li>
+            <li className="crop-tag">Fennel</li>
+            <li className="crop-tag">Organic Compost</li>
+          </ul>
         </div>
       </section>
-      <section id="impact" className="vision-section">
+
+      {/* ─── VISION 2030 ────────────────────────────────── */}
+      <section id="impact" className="vision-section on-dark">
         <div className="container">
           <div className="reveal">
-            <p className="uppercase" style={{color:'rgba(255,255,255,0.5)', marginBottom:'1rem', display:'block'}}>Our Vision 2030</p>
-            <h2 className="vision-title serif">Scale.</h2>
+            <p className="vision-kicker">Our Vision 2030</p>
+            <h2 className="vision-title">Scale.</h2>
           </div>
           <div className="stats-grid">
-            <div className="stat-item reveal">
-              <span className="stat-num" ref={count1}>0</span>
+            <div className="stat-item reveal" style={{'--i': 0}}>
+              <span className="stat-num" ref={count1}>12,000+</span>
               <span className="stat-desc">Trained Beneficiaries</span>
             </div>
-            <div className="stat-item reveal" style={{transitionDelay: '0.15s'}}>
-              <span className="stat-num" ref={count2}>0</span>
+            <div className="stat-item reveal" style={{'--i': 1}}>
+              <span className="stat-num" ref={count2}>1,000+</span>
               <span className="stat-desc">Kitchen Gardens Installed</span>
             </div>
-            <div className="stat-item reveal" style={{transitionDelay: '0.3s'}}>
-              <span className="stat-num" ref={count3}>0</span>
+            <div className="stat-item reveal" style={{'--i': 2}}>
+              <span className="stat-num" ref={count3}>150</span>
               <span className="stat-desc">Institutional Partnerships</span>
             </div>
           </div>
@@ -305,26 +309,26 @@ export default function Home() {
       </section>
 
       {/* ─── GALLERY ────────────────────────────────────── */}
-      <section id="gallery" className="section section-no-border">
+      <section id="gallery" className="section">
         <div className="container">
-          <div className="reveal gallery-header">
+          <div className="section-head reveal">
             <div>
-              <span className="uppercase text-accent" style={{display:'block', marginBottom:'1rem'}}>Journal &amp; Work</span>
-              <h2 className="serif" style={{fontSize: '4rem'}}>Impact in Action.</h2>
+              <span className="kicker">Journal &amp; Work</span>
+              <h2 className="display-2">Impact in Action.</h2>
             </div>
-            <p className="editorial-body" style={{margin:0, maxWidth:'360px'}}>A visual diary of our daily operations, training sessions, and the communities we empower across Rwanda.</p>
+            <p className="lede">A visual diary of our daily operations, training sessions, and the communities we empower across Rwanda.</p>
           </div>
 
-          <div className="masonry reveal">
-            <div className="masonry-item"><img src="/garden-construction.jpg" alt="Garden Construction" /></div>
-            <div className="masonry-item"><img src="/gallery-1.jpg" alt="Community Work" /></div>
-            <div className="masonry-item"><img src="/gallery-2.jpg" alt="Training Session" /></div>
-            <div className="masonry-item"><img src="/gallery-3.jpg" alt="Kitchen Garden" /></div>
-            <div className="masonry-item"><img src="/gallery-4.jpg" alt="Harvest" /></div>
-            <div className="masonry-item"><img src="/gallery-5.jpg" alt="Women Farmers" /></div>
-            <div className="masonry-item"><img src="/gallery-6.jpg" alt="Organic Seedlings" /></div>
-            <div className="masonry-item"><img src="/gallery-7.jpg" alt="Urban Farm" /></div>
-            <div className="masonry-item"><img src="/gallery-8.jpg" alt="Community Impact" /></div>
+          <div className="masonry gallery-grid">
+            <div className="masonry-item reveal-media"><img src="/garden-construction.jpg" alt="Kitchen garden construction by GKG Rwanda" loading="lazy" decoding="async" /></div>
+            <div className="masonry-item reveal-media"><img src="/gallery-1.jpg" alt="GKG community work in Musanze, Rwanda" loading="lazy" decoding="async" /></div>
+            <div className="masonry-item reveal-media"><img src="/gallery-10.jpg" alt="Community members preparing farmland together with GKG Rwanda" loading="lazy" decoding="async" /></div>
+            <div className="masonry-item reveal-media"><img src="/gallery-3.jpg" alt="Kitchen garden installed by GKG Rwanda" loading="lazy" decoding="async" /></div>
+            <div className="masonry-item reveal-media"><img src="/gallery-4.jpg" alt="Organic vegetable harvest from a GKG garden" loading="lazy" decoding="async" /></div>
+            <div className="masonry-item reveal-media"><img src="/gallery-5.jpg" alt="Women farmers trained by GKG Rwanda" loading="lazy" decoding="async" /></div>
+            <div className="masonry-item reveal-media"><img src="/gallery-6.jpg" alt="Organic vegetable seedlings from the GKG nursery" loading="lazy" decoding="async" /></div>
+            <div className="masonry-item reveal-media"><img src="/gallery-12.jpg" alt="Farmer tending crops in a GKG-supported field" loading="lazy" decoding="async" /></div>
+            <div className="masonry-item reveal-media"><img src="/gallery-8.jpg" alt="Community impact of GKG programs in Rwanda" loading="lazy" decoding="async" /></div>
           </div>
         </div>
       </section>

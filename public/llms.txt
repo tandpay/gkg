@@ -1,0 +1,29 @@
+# Golden Kitchen Garden Rwanda (GKG)
+
+> Golden Kitchen Garden Rwanda Ltd (GKG) is a registered social enterprise based in Nkotsi, Musanze, Rwanda, founded in 2020 by Jean de Dieu Twagirimana. It promotes regenerative and climate-smart agriculture, nutrition and food security, kitchen and school gardens, circular-economy composting, edible landscaping, and income opportunities for women, youth, and persons with disabilities across Rwanda.
+
+Key facts:
+
+- Legal name: Golden Kitchen Garden Rwanda Ltd (RDB company code 112368548)
+- Founded: 2020, by Jean de Dieu Twagirimana (Managing Director & Founder)
+- Headquarters: Nkotsi, Musanze, Northern Province, Rwanda
+- Website: https://goldenkitchengarden.com
+- Phone / WhatsApp: +250 788 206 976
+- Email: info@goldenkitchengarden.com, customer@goldenkitchengarden.com
+- Impact to date: 3,300+ women, youth and persons with disabilities empowered; 400+ modern kitchen gardens installed; 50+ VSLAs, 10 cooperatives and 11+ companies supported; 30+ school agriculture clubs established
+- Vision 2030 targets: 12,000+ trained beneficiaries, 1,000+ kitchen gardens, 150 institutional partnerships
+
+## Pages
+
+- [Home](https://goldenkitchengarden.com/): core programs, premium services, partners, crops grown, Vision 2030, and photo gallery
+- [About Us](https://goldenkitchengarden.com/about): who GKG is, vision, mission, seven strategic objectives, and leadership structure
+- [Products & Services](https://goldenkitchengarden.com/products): the eleven products and services GKG offers
+- [Our Impact](https://goldenkitchengarden.com/impact): measured results across Rwanda
+
+## Full text
+
+- [llms-full.txt](https://goldenkitchengarden.com/llms-full.txt): the complete website content in one Markdown file
+
+## Optional
+
+- [Sitemap](https://goldenkitchengarden.com/sitemap.xml)

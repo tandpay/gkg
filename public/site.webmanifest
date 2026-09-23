@@ -1,0 +1,13 @@
+{
+  "name": "Golden Kitchen Garden Rwanda",
+  "short_name": "GKG Rwanda",
+  "description": "Climate-smart kitchen gardens, edible landscaping and farmer training in Musanze, Rwanda.",
+  "start_url": "/",
+  "display": "browser",
+  "background_color": "#FAFAF7",
+  "theme_color": "#2D6A4F",
+  "icons": [
+    { "src": "/logo.png", "sizes": "1024x1024", "type": "image/png" },
+    { "src": "/apple-touch-icon.png", "sizes": "180x180", "type": "image/png" }
+  ]
+}

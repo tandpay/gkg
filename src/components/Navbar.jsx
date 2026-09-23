@@ -5,11 +5,13 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const location = useLocation();
+  const onHero = location.pathname === '/';
 
   useEffect(() => {
     const onScroll = () => {
       setScrolled(window.scrollY > 60);
     };
+    onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
@@ -19,30 +21,45 @@ export default function Navbar() {
     setMenuOpen(false);
   }, [location]);
 
+  // Lock page scroll behind the open mobile menu; Escape closes it.
+  useEffect(() => {
+    if (!menuOpen) return;
+    const onKey = (e) => { if (e.key === 'Escape') setMenuOpen(false); };
+    document.body.style.overflow = 'hidden';
+    window.addEventListener('keydown', onKey);
+    return () => {
+      document.body.style.overflow = '';
+      window.removeEventListener('keydown', onKey);
+    };
+  }, [menuOpen]);
+
   const isActive = (path) => location.pathname === path ? 'active-link' : '';
+  const current = (path) => location.pathname === path ? 'page' : undefined;
 
   return (
-    <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
+    <nav className={`navbar ${onHero ? 'on-hero' : ''} ${scrolled ? 'scrolled' : ''} ${menuOpen ? 'menu-open' : ''}`} aria-label="Main">
       <div className="container">
         <Link to="/" className="logo-container">
-          <img src="/logo.jpg" alt="GKG Logo" style={{ mixBlendMode: 'multiply' }} />
+          <span className="logo-tile"><img src="/logo.jpg" alt="GKG Logo" width="34" height="32" /></span>
           <div className="logo-text">GKG Rwanda</div>
         </Link>
-        
+
         {/* Desktop Links */}
         <div className="nav-links desktop-only">
-          <Link to="/" className={`nav-link ${isActive('/')}`}>Home</Link>
-          <Link to="/about" className={`nav-link ${isActive('/about')}`}>About Us</Link>
-          <Link to="/governance" className={`nav-link ${isActive('/governance')}`}>Our Products</Link>
-          <Link to="/safeguarding" className={`nav-link ${isActive('/safeguarding')}`}>Our Impact</Link>
-          <a href="mailto:goldengarden121@gmail.com" className="btn nav-cta">Partner</a>
+          <Link to="/" className={`nav-link ${isActive('/')}`} aria-current={current('/')}>Home</Link>
+          <Link to="/about" className={`nav-link ${isActive('/about')}`} aria-current={current('/about')}>About Us</Link>
+          <Link to="/products" className={`nav-link ${isActive('/products')}`} aria-current={current('/products')}>Our Products</Link>
+          <Link to="/impact" className={`nav-link ${isActive('/impact')}`} aria-current={current('/impact')}>Our Impact</Link>
+          <a href="mailto:goldengarden121@gmail.com" className="btn btn-primary btn-sm nav-cta">Partner</a>
         </div>
 
         {/* Mobile Hamburger Toggle */}
-        <button 
-          className={`hamburger ${menuOpen ? 'open' : ''} mobile-only`} 
+        <button
+          className={`hamburger ${menuOpen ? 'open' : ''} mobile-only`}
           onClick={() => setMenuOpen(!menuOpen)}
           aria-label="Toggle menu"
+          aria-expanded={menuOpen}
+          aria-controls="mobile-menu"
         >
           <span></span>
           <span></span>
@@ -51,12 +68,12 @@ export default function Navbar() {
       </div>
 
       {/* Mobile Menu Dropdown */}
-      <div className={`mobile-menu ${menuOpen ? 'open' : ''}`}>
+      <div id="mobile-menu" className={`mobile-menu ${menuOpen ? 'open' : ''}`} inert={!menuOpen}>
         <Link to="/" className={`nav-link ${isActive('/')}`}>Home</Link>
         <Link to="/about" className={`nav-link ${isActive('/about')}`}>About Us</Link>
-        <Link to="/governance" className={`nav-link ${isActive('/governance')}`}>Our Products</Link>
-        <Link to="/safeguarding" className={`nav-link ${isActive('/safeguarding')}`}>Our Impact</Link>
-        <a href="mailto:goldengarden121@gmail.com" className="btn nav-cta" style={{marginTop:'1rem'}}>Partner</a>
+        <Link to="/products" className={`nav-link ${isActive('/products')}`}>Our Products</Link>
+        <Link to="/impact" className={`nav-link ${isActive('/impact')}`}>Our Impact</Link>
+        <a href="mailto:goldengarden121@gmail.com" className="btn btn-primary nav-cta">Partner</a>
       </div>
     </nav>
   );
