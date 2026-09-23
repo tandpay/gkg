@@ -6,22 +6,23 @@ export default function Footer() {
       <div className="container">
         <div className="footer-top reveal">
           <h2 className="footer-huge">Partner with <span>purpose.</span></h2>
-          <a href="mailto:info@goldenkitchengarden.com" className="btn btn-accent-outline">Get in touch ↗</a>
+          <a href="mailto:info@goldenkitchengarden.com" className="btn btn-harvest">Get in touch ↗</a>
         </div>
 
-        <div className="footer-grid reveal">
-          <div className="footer-col">
+        <div className="footer-grid">
+          <div className="footer-col footer-org">
+            <span className="logo-tile"><img src="/logo.jpg" alt="GKG" width="34" height="32" loading="lazy" /></span>
             <h4>Organization</h4>
-            <p className="text-dim" style={{marginBottom: '0.75rem'}}>Golden Kitchen Garden Rwanda Ltd.</p>
-            <p className="text-dim" style={{marginBottom: '0.75rem'}}>Nkotsi, Musanze, Rwanda</p>
+            <p className="text-dim">Golden Kitchen Garden Rwanda Ltd.</p>
+            <p className="text-dim">Nkotsi, Musanze, Rwanda</p>
             <p className="text-dim">RDB Code: 112368548</p>
           </div>
           <div className="footer-col">
             <h4>Quick Links</h4>
             <ul className="footer-links">
               <li><Link to="/about">About Us</Link></li>
-              <li><Link to="/governance">Our Products</Link></li>
-              <li><Link to="/safeguarding">Our Impact</Link></li>
+              <li><Link to="/products">Our Products</Link></li>
+              <li><Link to="/impact">Our Impact</Link></li>
             </ul>
           </div>
           <div className="footer-col">
@@ -40,10 +41,10 @@ export default function Footer() {
               <li><a href="mailto:customer@goldenkitchengarden.com">customer@goldenkitchengarden.com</a></li>
             </ul>
           </div>
-          <div className="footer-col" style={{textAlign: 'right'}}>
-            <img src="/logo.jpg" alt="GKG" style={{height:'60px', filter: 'invert(1) grayscale(1) brightness(2)', mixBlendMode: 'screen', marginBottom:'2rem'}} />
-            <p className="text-dim uppercase" style={{fontSize: '0.75rem'}}>&copy; {new Date().getFullYear()} Golden Kitchen Garden Rwanda. All Rights Reserved.</p>
-          </div>
+        </div>
+
+        <div className="footer-bottom">
+          <p>&copy; {new Date().getFullYear()} Golden Kitchen Garden Rwanda. All Rights Reserved.</p>
         </div>
       </div>
     </footer>
